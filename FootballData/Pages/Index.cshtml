@@ -1,0 +1,49 @@
+﻿@page
+
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h2>League Table</h2>
+    <table class="table-bordered table-responsive table-striped" border="1">
+        <tr>
+            <th>Club</th>
+            <th>Played</th>
+            <th>Home Won</th>
+            <th>Home Drawn</th>
+            <th>Home Loss</th>
+            <th>Home For</th>
+            <th>Home Against</th>
+            <th>Away Won</th>
+            <th>Away Drawn</th>
+            <th>Away Loss</th>
+            <th>Away For</th>
+            <th>Away Against</th>
+            <th>Goal Difference</th>
+            <th>Points</th>
+        </tr>
+
+        @foreach (var row in Model.LeagueTableResults)
+        {
+            <tr>
+                <td><a asp-page=".\ClubFormGuide" asp-route-clubId="@row.ClubID">@Model.GetClubName(row.ClubID)</a></td>
+                <td>@row.Played<br /></td>
+                <td>@row.HomeWon<br /></td>
+                <td>@row.HomeDraw<br /></td>
+                <td>@row.HomeLoss<br /></td>
+                <td>@row.HomeAgainst<br /></td>
+                <td>@row.HomeDraw<br /></td>
+                <td>@row.AwayWon<br /></td>
+                <td>@row.AwayDraw<br /></td>
+                <td>@row.AwayLoss<br /></td>
+                <td>@row.AwayFor<br /></td>
+                <td>@row.AwayAgainst<br /></td>
+                <td>@row.GoalDifference</td>
+                <td>@row.Points</td>
+            </tr>
+        }
+
+    </table>
+</div>

@@ -1,0 +1,32 @@
+﻿@*
+
+*@
+@model List<string>
+@{
+}
+
+<div>
+    <h1>Club's Form details</h1>
+
+    <table>
+        <tr>
+            @foreach (var matchResult in Model)
+            {
+                <td>
+                    @if (matchResult == "W")
+                    {
+                        <h2 style="background-color:green">@matchResult</h2>
+                    }
+                    else if (matchResult == "L")
+                    {
+                        <h2 style="background-color:red">@matchResult</h2>
+                    }
+                    else
+                    {
+                        <h2 style="background-color: gray">@matchResult</h2>
+                    }
+                </td>
+            }
+        </tr>
+    </table>
+</div>

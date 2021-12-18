@@ -1,0 +1,76 @@
+﻿@page
+@model FootballData.Pages.ClubFormGuideModel
+@{
+    Layout = "_Layout";
+}
+<form method="post">
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        <label asp-for="Club.ClubName">Please select a club:</label>
+        <select class="form-control" id="ddlClub"
+                onchange="SelectedClubChanged()"
+                asp-for="Club.ClubName"
+                asp-items="Model.Clubs">
+        </select>
+        <span class="text-danger" asp-validation-for="Club.ClubName"></span>
+    </div>
+
+    <div id="divClubFormDetails">
+        <partial name="ClubForm" model="@Model.ClubForm" />
+    </div>
+
+    @*@await Component.InvokeAsync("ClubForm", Model.ClubID)*@
+
+    @*<div id="divClubFormDetails">
+    </div>*@
+
+</form>
+
+@section Scripts{
+    <script>
+        function SelectedClubChanged() {
+
+            var selectedClubID = $("#ddlClub").val();
+
+            $.ajax({
+                type: "POST",
+                url: '/ClubFormGuide',
+                data: "{'selectedClubID':'" + selectedClubID + "'}",
+                contentType: "application/x-www-form-urlencoded",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                dataType: "json",
+                headers: {
+                    RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val(),
+                }
+            });
+
+            // Now update the view with the selected club's form
+            $("#divClubFormDetails").empty();
+            $("#divClubFormDetails").load("/ClubFormGuide?handler=UpdateClubFormForPartialView&selectedClubID=" + selectedClubID);
+
+            // This method below is to call Post method
+            //$.ajax({
+            //    type: "POST",
+            //    url: '/ClubFormGuide',
+            //    data: "{'selectedClubID':'" + selectedClubID + "'}",
+            //    contentType: "application/x-www-form-urlencoded",
+            //    beforeSend: function (xhr) {
+            //        xhr.setRequestHeader("XSRF-TOKEN",
+            //            $('input:hidden[name="__RequestVerificationToken"]').val());
+            //    },
+            //    dataType: "json",
+            //    headers: {
+            //        RequestVerificationToken: $('input:hidden[name="__RequestVerificationToken"]').val(),
+            //    }
+            //});
+
+            // This method is to just call load div with partial data etc
+            //$("#divClubFormDetails").load("/ClubFormDetails?handler=ClubFormDetailsPartial&selectedClubID=" + selectedClubID);
+        }
+    </script>
+}
