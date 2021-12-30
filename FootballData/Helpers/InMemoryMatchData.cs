@@ -8,7 +8,7 @@ namespace FootballData.Interfaces
 {
     public class InMemoryMatchData : IMatchData
     {                
-        private const string pathToJsonFile = @"\Resources\premierLeague.json";
+        private const string pathToJsonFile = @"/Resources/premierLeague.json";
 
         public List<Stats> ReadJsonPremiershipMatchDataFile()
         {
