@@ -7,13 +7,7 @@
     <StartupObject></StartupObject>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Content Remove="Resources\premierLeague.json" />
-  </ItemGroup>
 
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\premierLeague.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
